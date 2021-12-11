@@ -14,12 +14,15 @@ M586 P0 S1                                   						; enable HTTP
 M586 P1 S0                                  						; disable FTP
 M586 P2 S0                                   						; disable Telnet
 
+; ##### 12864 Menu
+M918 P2 E-4
+
 ; ##### Drives
 M569 P1 S0 D3 V10                                					; X drive @1
 M569 P2 S0 D3 V10                                					; Y drive @2
 M569 P0 S0 D3 V100                               					; Z left drive @0
 M569 P4 S0 D3 V100                               					; Z right drive  @4
-M569 P3 S1 D3 V1000                               					; E drive @3 - inversed
+M569 P3 S1 D3 V0                                					    ; E drive @3 - inversed
 M584 X1 Y2 Z0:4 E3                     								; set drive mapping
 M671 X-37:287 Y0:0 S10                                     			; define dual driven z-axis 
 
@@ -45,9 +48,10 @@ M591 D0 P2 C"io3.in" S1                                    			; Filament Runout 
 ; ##### Z-Probe Settings for PINDA 2
 M558 P5 C"io2.in" I1 H1 F1000 T6000 A3              				; Prusa PindaV2 Endstop
 M308 S2 P"temp2" A"Pinda V2" Y"thermistor" T100000 B3950      		; Prusa PindaV2 Thermistor
-G31 P1000 X23 Y5 Z1.4                                  				; Nozzle offset
+G31 P1000 X23 Y5 Z1.4 S21 H2 T0.02                         			; Nozzle offset - Powder Coated Sheet with temperature compensation (0.02mm/°C)
+;G31 P1000 X23 Y5 Z1.1 S21 H2 T0.02                                    			; Nozzle offset - Smooth Sheet
 M574 Z1 S2                                                 			; Set Z axis endstop, controlled by probe
-M557 X24:228 Y6:210 P7                                    			; Define mesh grid for probing
+M557 X24:228 Y6:210 P5                                    			; Define mesh grid for probing
 M376 H5																; Fade height 5mm
 
 ; ##### Heaters
